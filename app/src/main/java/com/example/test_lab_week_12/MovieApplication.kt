@@ -10,7 +10,7 @@ class MovieApplication : Application() {
         super.onCreate()
 // create a Retrofit instance
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://204218a774bd.ngrok-free.app")
+            .baseUrl("https://api.themoviedb.org/3/")
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
 // create a MovieService instance

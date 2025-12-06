@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.flowOn
 
 class MovieRepository(private val movieService: MovieService) {
 
-    private val apiKey = "dcdb4e9006af95e06aa730bdf91062ce"
+    private val apiKey = "c9d68f049152675117bb17e94644610d"
 
     fun fetchMovies(): Flow<List<Movie>> {
         return flow {
