@@ -24,33 +24,33 @@ class MovieAdapter(private val clickListener: MovieClickListener) :
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = movies[position]
-        holder.bind(movie)
+        holder.bind(movie, position)  // pass position
         holder.itemView.setOnClickListener { clickListener.onMovieClick(movie) }
     }
 
+
     fun addMovies(movieList: List<Movie>) {
+        movies.clear() // clear previous list to avoid duplicates
         movies.addAll(movieList)
-        notifyItemRangeInserted(0, movieList.size)
+        notifyDataSetChanged()
     }
 
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imageUrl = "https://image.tmdb.org/t/p/w185/"
-        private val titleText: TextView by lazy {
-            itemView.findViewById(R.id.movie_title)
-        }
-        private val poster: ImageView by lazy {
-            itemView.findViewById(R.id.movie_poster)
-        }
+        private val titleText: TextView by lazy { itemView.findViewById(R.id.movie_title) }
+        private val poster: ImageView by lazy { itemView.findViewById(R.id.movie_poster) }
+        private val rankText: TextView by lazy { itemView.findViewById(R.id.movie_rank) }
 
-        fun bind(movie: Movie) {
+        fun bind(movie: Movie, position: Int) {
             titleText.text = movie.title
-
+            rankText.text = "#${position + 1}"  // rank starts at 1
             Glide.with(itemView.context)
                 .load("$imageUrl${movie.posterPath}")
                 .placeholder(R.mipmap.ic_launcher)
                 .fitCenter()
                 .into(poster)
         }
+
     }
 
     interface MovieClickListener {
